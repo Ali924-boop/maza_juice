@@ -36,19 +36,19 @@ export default function AboutPage() {
             <Navbar />
 
             {/* Hero Section for About Page */}
-            <section className="py-20 px-6">
+            <section className="py-12 md:py-20 px-4 md:px-6">
                 <div className="max-w-7xl mx-auto text-center">
                     <motion.h1
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="text-5xl md:text-7xl font-black mb-8"
+                        className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 md:mb-8"
                     >
                         OUR <span className="text-maza-orange">STORY</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-3xl mx-auto text-xl text-neutral-600 leading-relaxed"
+                        className="max-w-3xl mx-auto text-lg md:text-xl text-neutral-600 leading-relaxed px-2"
                     >
                         Maza started as a small family orchard with a simple mission: to capture the pure essence of a perfect mango. Today, we've grown into a global brand, but our heart remains in those same sun-drenched orchards.
                     </motion.p>
@@ -56,15 +56,15 @@ export default function AboutPage() {
             </section>
 
             {/* CEO Section */}
-            <section className="py-24 px-6 bg-neutral-50">
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <section className="py-16 md:py-24 px-4 md:px-6 bg-neutral-50">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        className="flex-1"
+                        className="w-full lg:flex-1"
                     >
-                        <div className="relative group w-full aspect-[4/5]">
-                            <div className="absolute inset-0 bg-maza-orange/20 rounded-3xl translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform" />
+                        <div className="relative group w-full max-w-md mx-auto lg:max-w-none aspect-[4/5]">
+                            <div className="absolute inset-0 bg-maza-orange/20 rounded-3xl translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform" />
                             <Image src={team[0].image} alt={team[0].name} fill className="object-cover rounded-3xl shadow-xl" />
                         </div>
                     </motion.div>
@@ -72,16 +72,16 @@ export default function AboutPage() {
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        className="flex-1 space-y-6"
+                        className="flex-1 space-y-4 md:space-y-6 text-center lg:text-left"
                     >
-                        <span className="text-maza-orange font-bold uppercase tracking-widest text-sm">Message from our CEO</span>
-                        <h2 className="text-4xl font-black">{team[0].name}</h2>
-                        <p className="text-lg text-neutral-600 italic">"At Maza, we don't just sell juice; we bottle the feeling of a perfect tropical afternoon. Our commitment to quality is what sets us apart."</p>
-                        <p className="text-neutral-500 leading-relaxed">{team[0].bio}</p>
-                        <div className="flex gap-4 pt-4">
-                            <a href={team[0].socials.twitter} className="text-neutral-400 hover:text-maza-orange transition-colors"><Twitter size={24} /></a>
-                            <a href={team[0].socials.linkedin} className="text-neutral-400 hover:text-maza-orange transition-colors"><Linkedin size={24} /></a>
-                            <a href={team[0].socials.instagram} className="text-neutral-400 hover:text-maza-orange transition-colors"><Instagram size={24} /></a>
+                        <span className="text-maza-orange font-bold uppercase tracking-widest text-[10px] md:text-sm">Message from our CEO</span>
+                        <h2 className="text-3xl md:text-4xl font-black">{team[0].name}</h2>
+                        <p className="text-base md:text-lg text-neutral-600 italic leading-relaxed">"At Maza, we don't just sell juice; we bottle the feeling of a perfect tropical afternoon. Our commitment to quality is what sets us apart."</p>
+                        <p className="text-sm md:text-base text-neutral-500 leading-relaxed">{team[0].bio}</p>
+                        <div className="flex justify-center lg:justify-start gap-6 pt-4">
+                            <a href={team[0].socials.twitter} className="text-neutral-400 hover:text-maza-orange transition-colors"><Facebook size={20} /></a>
+                            <a href={team[0].socials.linkedin} className="text-neutral-400 hover:text-maza-orange transition-colors"><Linkedin size={20} /></a>
+                            <a href={team[0].socials.instagram} className="text-neutral-400 hover:text-maza-orange transition-colors"><Instagram size={20} /></a>
                         </div>
                     </motion.div>
                 </div>

@@ -49,9 +49,9 @@ export default function CartPage() {
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <h1 className="text-5xl font-black mb-12">MY <span className="text-maza-orange">CART.</span></h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
                     {/* Cart Items */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-4 md:space-y-6">
                         <AnimatePresence mode="popLayout">
                             {cart.map((item) => (
                                 <motion.div
@@ -60,40 +60,42 @@ export default function CartPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
-                                    className="bg-white rounded-[2rem] p-6 shadow-sm border border-neutral-100 flex items-center gap-6"
+                                    className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 shadow-sm border border-neutral-100 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 relative"
                                 >
-                                    <div className="w-24 h-24 bg-neutral-50 rounded-2xl p-2 relative shrink-0">
+                                    <div className="w-20 h-20 md:w-24 md:h-24 bg-neutral-50 rounded-xl md:rounded-2xl p-2 relative shrink-0">
                                         <Image src={item.image} alt={item.name} fill className="object-contain" />
                                     </div>
 
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-lg font-bold truncate">{item.name}</h3>
-                                        <p className="text-sm text-neutral-400 font-medium">Carton of 12 Bottles</p>
-                                        <p className="text-maza-orange font-black mt-1">${item.price}</p>
+                                    <div className="flex-1 min-w-0 pr-10 sm:pr-0">
+                                        <h3 className="text-base md:text-lg font-bold truncate">{item.name}</h3>
+                                        <p className="text-[10px] md:text-xs text-neutral-400 font-bold uppercase tracking-widest mt-0.5">Premium Juice</p>
+                                        <p className="text-maza-orange font-black mt-1 md:mt-2 text-lg md:text-xl">${item.price}</p>
                                     </div>
 
-                                    <div className="flex items-center gap-4 bg-neutral-50 rounded-xl p-1 shrink-0">
+                                    <div className="flex items-center justify-between w-full sm:w-auto gap-4">
+                                        <div className="flex items-center gap-3 bg-neutral-50 rounded-xl p-1 shrink-0">
+                                            <button
+                                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white rounded-lg transition-colors border border-transparent hover:border-neutral-200"
+                                            >
+                                                <Minus size={14} />
+                                            </button>
+                                            <span className="font-bold text-sm md:text-base w-6 text-center">{item.quantity}</span>
+                                            <button
+                                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white rounded-lg transition-colors border border-transparent hover:border-neutral-200"
+                                            >
+                                                <Plus size={14} />
+                                            </button>
+                                        </div>
+
                                         <button
-                                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                            className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-lg transition-colors"
+                                            onClick={() => removeFromCart(item.id)}
+                                            className="sm:static absolute top-4 right-4 p-2 text-neutral-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                         >
-                                            <Minus size={14} />
-                                        </button>
-                                        <span className="font-bold text-sm w-4 text-center">{item.quantity}</span>
-                                        <button
-                                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                            className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-lg transition-colors"
-                                        >
-                                            <Plus size={14} />
+                                            <Trash2 size={20} />
                                         </button>
                                     </div>
-
-                                    <button
-                                        onClick={() => removeFromCart(item.id)}
-                                        className="p-3 text-neutral-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                                    >
-                                        <Trash2 size={20} />
-                                    </button>
                                 </motion.div>
                             ))}
                         </AnimatePresence>

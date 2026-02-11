@@ -74,7 +74,7 @@ export default function NewTrending() {
                                     <span className="text-xl font-black">${flavor.price}</span>
                                     <button
                                         onClick={(e) => handleAddToCart(e, flavor)}
-                                        className="bg-black text-white p-3 rounded-full hover:bg-maza-orange transition-colors scale-0 group-hover:scale-100 duration-300 relative z-20"
+                                        className="bg-black text-white p-3 rounded-full hover:bg-maza-orange transition-all scale-100 sm:scale-0 sm:group-hover:scale-100 duration-300 relative z-20 shadow-lg"
                                     >
                                         <Plus size={20} />
                                     </button>

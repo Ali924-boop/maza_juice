@@ -16,47 +16,47 @@ export default function AboutSection() {
     return (
         <section className="py-24 px-6 bg-neutral-950 text-white overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
-                <div className="flex-1 relative">
+                <div className="flex-1 relative order-2 lg:order-1">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        className="grid grid-cols-2 gap-4"
+                        className="grid grid-cols-2 gap-3 md:gap-4"
                     >
-                        <div className="space-y-4 pt-12">
-                            <div className="relative h-80 w-full">
+                        <div className="space-y-3 md:space-y-4 pt-8 md:pt-12">
+                            <div className="relative h-48 sm:h-64 md:h-80 w-full">
                                 <Image src="https://images.unsplash.com/photo-1596333179718-56fd295567fd?q=80&w=400" alt="Fresh Fruit" fill className="rounded-2xl object-cover" />
                             </div>
-                            <div className="relative h-48 w-full">
+                            <div className="relative h-32 sm:h-40 md:h-48 w-full">
                                 <Image src="https://images.unsplash.com/photo-1600271886364-44ed4525042a?q=80&w=400" alt="Juice Pour" fill className="rounded-2xl object-cover" />
                             </div>
                         </div>
-                        <div className="space-y-4">
-                            <div className="relative h-48 w-full">
+                        <div className="space-y-3 md:space-y-4">
+                            <div className="relative h-32 sm:h-40 md:h-48 w-full">
                                 <Image src="https://images.unsplash.com/photo-1616118132261-3e031252fca2?q=80&w=400" alt="Mango Orchard" fill className="rounded-2xl object-cover" />
                             </div>
-                            <div className="relative h-80 w-full">
+                            <div className="relative h-48 sm:h-64 md:h-80 w-full">
                                 <Image src="https://images.unsplash.com/photo-1571767761840-7ec16ae930cb?q=80&w=400" alt="Healthy Lifestyle" fill className="rounded-2xl object-cover" />
                             </div>
                         </div>
                     </motion.div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-maza-orange p-8 rounded-full shadow-2xl animate-bounce hidden md:block">
-                        <span className="text-4xl font-bold">100%</span>
-                        <p className="text-[10px] uppercase font-bold text-center">Natural</p>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-maza-orange p-4 md:p-8 rounded-full shadow-2xl animate-bounce hidden sm:block">
+                        <span className="text-2xl md:text-4xl font-bold text-white">100%</span>
+                        <p className="text-[8px] md:text-[10px] uppercase font-bold text-center text-white">Natural</p>
                     </div>
                 </div>
 
-                <div className="flex-1 space-y-8">
+                <div className="flex-1 space-y-6 md:space-y-8 order-1 lg:order-2">
                     <motion.span
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        className="text-maza-orange font-bold tracking-widest text-sm uppercase"
+                        className="text-maza-orange font-bold tracking-widest text-xs md:text-sm uppercase"
                     >
                         Our Philosophy
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-black leading-tight"
+                        className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight"
                     >
                         CRAFTING THE <br />
                         <span className="text-maza-yellow">PERFECT SIP.</span>

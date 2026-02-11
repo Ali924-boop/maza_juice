@@ -16,24 +16,24 @@ export default function FlavorsPage() {
         <main className="min-h-screen bg-neutral-50 pt-24">
             <Navbar />
 
-            <section className="py-20 px-6">
+            <section className="py-12 md:py-20 px-4 md:px-6">
                 <div className="max-w-7xl mx-auto">
-                    <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div className="mb-10 md:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-6 md:gap-8">
                         <div className="max-w-xl">
                             <motion.h1
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-5xl md:text-7xl font-black mb-6"
+                                className="text-4xl sm:text-5xl md:text-7xl font-black mb-4 md:mb-6"
                             >
                                 OUR <span className="text-maza-orange">COLLECTION.</span>
                             </motion.h1>
-                            <p className="text-neutral-500 text-lg">
-                                Discover the full range of Maza's tropical flavors. From the classics to our new exotic blends, there's something for every palate.
+                            <p className="text-neutral-500 text-base md:text-lg">
+                                Discover the full range of Maza's tropical flavors. From the classics to our new exotic blends.
                             </p>
                         </div>
 
-                        <div className="flex gap-4 w-full md:w-auto">
-                            <div className="relative flex-1 md:w-64">
+                        <div className="flex gap-3 md:gap-4 w-full lg:w-auto">
+                            <div className="relative flex-1 lg:w-64">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
                                 <input
                                     type="text"
@@ -41,7 +41,7 @@ export default function FlavorsPage() {
                                     className="w-full bg-white border-none rounded-2xl pl-10 pr-4 py-3 shadow-md outline-none focus:ring-2 focus:ring-maza-orange transition-all"
                                 />
                             </div>
-                            <button className="bg-white p-3 rounded-2xl shadow-md hover:bg-black hover:text-white transition-colors">
+                            <button className="bg-white p-3 rounded-2xl shadow-md hover:bg-black hover:text-white transition-colors shrink-0">
                                 <Filter size={18} />
                             </button>
                         </div>

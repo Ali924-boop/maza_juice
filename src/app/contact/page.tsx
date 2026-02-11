@@ -42,51 +42,51 @@ export default function ContactPage() {
         <main className="min-h-screen pt-24 bg-neutral-50">
             <Navbar />
 
-            <section className="py-20 px-6">
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20">
+            <section className="py-12 md:py-20 px-4 md:px-6">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20">
                     {/* Contact Info */}
-                    <div className="flex-1 space-y-12">
+                    <div className="flex-1 space-y-8 md:space-y-12">
                         <div>
                             <motion.h1
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="text-5xl md:text-7xl font-black mb-6"
+                                className="text-4xl sm:text-5xl md:text-7xl font-black mb-4 md:mb-6"
                             >
                                 GET IN <span className="text-maza-orange">TOUCH.</span>
                             </motion.h1>
-                            <p className="text-neutral-500 text-lg">
+                            <p className="text-neutral-500 text-base md:text-lg">
                                 Have a question or want to discuss a wholesale order? We'd love to hear from you.
                             </p>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="flex items-start gap-6">
-                                <div className="bg-maza-orange/10 p-4 rounded-2xl text-maza-orange">
-                                    <Phone size={24} />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
+                            <div className="flex items-start gap-4 md:gap-6">
+                                <div className="bg-maza-orange/10 p-3 md:p-4 rounded-2xl text-maza-orange shrink-0">
+                                    <Phone size={20} className="md:size-6" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-lg">Phone</h4>
-                                    <p className="text-neutral-500">+91 (800) 123-4567</p>
+                                    <h4 className="font-bold text-base md:text-lg">Phone</h4>
+                                    <p className="text-neutral-500 text-sm md:text-base">+91 (800) 123-4567</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-6">
-                                <div className="bg-maza-yellow/10 p-4 rounded-2xl text-maza-yellow">
-                                    <Mail size={24} />
+                            <div className="flex items-start gap-4 md:gap-6">
+                                <div className="bg-maza-yellow/10 p-3 md:p-4 rounded-2xl text-maza-yellow shrink-0">
+                                    <Mail size={20} className="md:size-6" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-lg">Email</h4>
-                                    <p className="text-neutral-500">hello@mazajuice.com</p>
+                                    <h4 className="font-bold text-base md:text-lg">Email</h4>
+                                    <p className="text-neutral-500 text-sm md:text-base">hello@mazajuice.com</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-6">
-                                <div className="bg-maza-pink/10 p-4 rounded-2xl text-maza-pink">
-                                    <MapPin size={24} />
+                            <div className="flex items-start gap-4 md:gap-6 sm:col-span-2 lg:col-span-1">
+                                <div className="bg-maza-pink/10 p-3 md:p-4 rounded-2xl text-maza-pink shrink-0">
+                                    <MapPin size={20} className="md:size-6" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-lg">Location</h4>
-                                    <p className="text-neutral-500">123 Mango Street, Tropical Valley,<br />Mumbai, India</p>
+                                    <h4 className="font-bold text-base md:text-lg">Location</h4>
+                                    <p className="text-neutral-500 text-sm md:text-base">123 Mango Street, Tropical Valley,<br />Mumbai, India</p>
                                 </div>
                             </div>
                         </div>
@@ -94,15 +94,15 @@ export default function ContactPage() {
                         {/* Fun dynamic element */}
                         <motion.div
                             animate={{
-                                rotate: [0, 5, -5, 0],
-                                y: [0, -10, 0]
+                                rotate: [0, 2, -2, 0],
+                                y: [0, -5, 0]
                             }}
                             transition={{ duration: 5, repeat: Infinity }}
-                            className="bg-maza-orange p-8 rounded-3xl text-white shadow-2xl shadow-maza-orange/20 relative overflow-hidden"
+                            className="bg-maza-orange p-6 md:p-8 rounded-[2rem] text-white shadow-2xl shadow-maza-orange/20 relative overflow-hidden hidden sm:block"
                         >
                             <div className="relative z-10 font-bold">
-                                <p className="text-sm uppercase tracking-widest opacity-80 mb-2">Response Time</p>
-                                <p className="text-2xl">Usually within 2 hours</p>
+                                <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-80 mb-1 md:mb-2">Response Time</p>
+                                <p className="text-xl md:text-2xl">Usually within 2 hours</p>
                             </div>
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-3xl -mr-10 -mt-10 rounded-full" />
                         </motion.div>
@@ -112,7 +112,7 @@ export default function ContactPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex-1 bg-white p-10 rounded-[2.5rem] shadow-xl shadow-black/5"
+                        className="flex-1 bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl shadow-black/5"
                     >
                         {isSuccess ? (
                             <motion.div
