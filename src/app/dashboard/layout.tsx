@@ -54,8 +54,7 @@ export default function DashboardLayout({
     return (
         <div className="flex flex-col lg:flex-row bg-neutral-50 min-h-screen overflow-x-hidden">
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
-
-            <div className="flex-1 flex flex-col min-w-0">
+            <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
                 {/* Mobile Header */}
                 <header className="lg:hidden bg-white border-b p-4 flex items-center justify-between sticky top-0 z-30">
                     <button
@@ -83,6 +82,6 @@ export default function DashboardLayout({
                     </motion.div>
                 </AnimatePresence>
             </div>
-        </div>
+        </div >
     );
 }

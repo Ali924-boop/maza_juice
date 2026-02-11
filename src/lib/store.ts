@@ -58,3 +58,10 @@ export const addProduct = (flavor: any) => {
     saveStoreData({ flavors: updatedFlavors });
     return updatedFlavors;
 };
+
+export const updateProduct = (flavor: any) => {
+    const { flavors } = getStoreData();
+    const updatedFlavors = flavors.map((f: any) => f.id === flavor.id ? flavor : f);
+    saveStoreData({ flavors: updatedFlavors });
+    return updatedFlavors;
+};
