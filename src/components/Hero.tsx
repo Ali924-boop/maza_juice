@@ -68,20 +68,34 @@ export default function Hero() {
                 </div>
 
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    transition={{ duration: 1, ease: "circOut" }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
                     className="flex-1 relative"
                 >
-                    {/* This will be the hero image of the bottle */}
-                    <div className="relative w-[300px] h-[500px] md:w-[400px] md:h-[600px] mx-auto overflow-visible">
-                        <div className="absolute inset-0 bg-maza-yellow blur-[100px] opacity-30 rounded-full animate-pulse" />
-                        <Image
-                            src="https://images.unsplash.com/photo-1622597467836-f3285f2127fd?q=80&w=1000&auto=format&fit=crop"
-                            alt="Maza Mango Bottle"
-                            fill
-                            className="object-contain relative z-10 drop-shadow-2xl"
-                        />
+                    <div className="relative w-[320px] h-[550px] md:w-[450px] md:h-[700px] mx-auto">
+                        {/* Interactive Sparkles/Glow */}
+                        <div className="absolute inset-0 bg-maza-orange/20 blur-[120px] rounded-full animate-pulse" />
+                        <motion.div
+                            animate={{
+                                y: [0, -20, 0],
+                                rotate: [0, 2, 0]
+                            }}
+                            transition={{
+                                duration: 6,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="relative w-full h-full"
+                        >
+                            <Image
+                                src="/flavors/mango.png"
+                                alt="Maza Premium Bottle"
+                                fill
+                                priority
+                                className="object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.3)]"
+                            />
+                        </motion.div>
                     </div>
                 </motion.div>
             </div>

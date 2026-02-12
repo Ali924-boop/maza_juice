@@ -23,19 +23,39 @@ export default function AboutSection() {
                         className="grid grid-cols-2 gap-3 md:gap-4"
                     >
                         <div className="space-y-3 md:space-y-4 pt-8 md:pt-12">
-                            <div className="relative h-48 sm:h-64 md:h-80 w-full">
-                                <Image src="https://images.unsplash.com/photo-1596333179718-56fd295567fd?q=80&w=400" alt="Fresh Fruit" fill className="rounded-2xl object-cover" />
+                            <div className="relative h-48 sm:h-64 md:h-80 w-full overflow-hidden rounded-2xl">
+                                <Image
+                                    src="https://res.cloudinary.com/dedb21477/image/upload/v1770929008/Fresh_Tropical_Mangoes_lkwklh.png"
+                                    alt="Fresh Tropical Mangoes"
+                                    fill
+                                    className="object-cover hover:scale-110 transition-transform duration-700"
+                                />
                             </div>
-                            <div className="relative h-32 sm:h-40 md:h-48 w-full">
-                                <Image src="https://images.unsplash.com/photo-1600271886364-44ed4525042a?q=80&w=400" alt="Juice Pour" fill className="rounded-2xl object-cover" />
+                            <div className="relative h-32 sm:h-40 md:h-48 w-full overflow-hidden rounded-2xl">
+                                <Image
+                                    src="https://res.cloudinary.com/dedb21477/image/upload/v1770929009/Tropical_Juice_Refreshment_jc6od7.png"
+                                    alt="Tropical Juice Refreshment"
+                                    fill
+                                    className="object-cover hover:scale-110 transition-transform duration-700"
+                                />
                             </div>
                         </div>
                         <div className="space-y-3 md:space-y-4">
-                            <div className="relative h-32 sm:h-40 md:h-48 w-full">
-                                <Image src="https://images.unsplash.com/photo-1616118132261-3e031252fca2?q=80&w=400" alt="Mango Orchard" fill className="rounded-2xl object-cover" />
+                            <div className="relative h-32 sm:h-40 md:h-48 w-full overflow-hidden rounded-2xl">
+                                <Image
+                                    src="https://res.cloudinary.com/dedb21477/image/upload/v1770929009/Nature_s_Finest_Fruit_ihtrnn.png"
+                                    alt="Maza Core Ingredient"
+                                    fill
+                                    className="object-contain bg-maza-yellow/5 p-4 hover:scale-110 transition-transform duration-700"
+                                />
                             </div>
-                            <div className="relative h-48 sm:h-64 md:h-80 w-full">
-                                <Image src="https://images.unsplash.com/photo-1571767761840-7ec16ae930cb?q=80&w=400" alt="Healthy Lifestyle" fill className="rounded-2xl object-cover" />
+                            <div className="relative h-48 sm:h-64 md:h-80 w-full overflow-hidden rounded-2xl">
+                                <Image
+                                    src="https://res.cloudinary.com/dedb21477/image/upload/v1770929009/Maza_Core_Ingredient_zrppsw.png"
+                                    alt="Nature's Finest Fruit"
+                                    fill
+                                    className="object-cover hover:scale-110 transition-transform duration-700"
+                                />
                             </div>
                         </div>
                     </motion.div>

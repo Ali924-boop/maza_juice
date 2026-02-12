@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
     LayoutDashboard,
     ShoppingBag,
@@ -30,6 +31,18 @@ interface SidebarProps {
 export default function DashboardSidebar({ isOpen, setIsOpen }: SidebarProps) {
     const pathname = usePathname();
     const router = useRouter();
+    const [profile, setProfile] = useState({
+        name: "Aditya Verma",
+        role: "Administrator",
+        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100"
+    });
+
+    useEffect(() => {
+        const savedProfile = localStorage.getItem("maza_admin_profile");
+        if (savedProfile) {
+            setProfile(JSON.parse(savedProfile));
+        }
+    }, [pathname]); // Reload when moving between pages
 
     const handleLogout = () => {
         localStorage.removeItem("maza_admin_auth");
@@ -89,13 +102,36 @@ export default function DashboardSidebar({ isOpen, setIsOpen }: SidebarProps) {
                     })}
                 </nav>
 
-                <div className="p-4 border-t">
+                <div className="p-4 border-t space-y-4">
+                    <Link
+                        href="/dashboard/settings"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 p-3 bg-neutral-50 rounded-2xl hover:bg-neutral-100 transition-all group"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-neutral-200 overflow-hidden relative shadow-inner border-2 border-white">
+                            <img
+                                src={profile.image}
+                                alt="Admin"
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="font-black text-xs truncate uppercase tracking-tight">{profile.name}</p>
+                            <p className="text-[9px] text-neutral-400 font-bold uppercase tracking-widest">{profile.role}</p>
+                        </div>
+                        <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center shadow-sm text-neutral-300 group-hover:text-maza-orange transition-colors">
+                            <ChevronRight size={14} />
+                        </div>
+                    </Link>
+
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 p-3 text-neutral-500 hover:text-red-500 transition-colors"
+                        className="w-full flex items-center gap-3 p-3 text-neutral-400 hover:text-red-500 transition-colors group"
                     >
-                        <LogOut size={20} />
-                        <span className="font-bold text-sm">Sign Out</span>
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-neutral-50 group-hover:bg-red-50 transition-colors">
+                            <LogOut size={18} />
+                        </div>
+                        <span className="font-bold text-sm tracking-tight">Sign Out</span>
                     </button>
                 </div>
             </aside>

@@ -8,9 +8,9 @@ import Image from "next/image";
 
 const team = [
     {
-        name: "Aditya Verma",
+        name: "Ali Raza Sandha",
         role: "CEO & Founder",
-        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400",
+        image: "https://res.cloudinary.com/dedb21477/image/upload/v1770930500/Gemini_Generated_Image_pt279zpt279zpt27_jq4esu.png",
         bio: "With over 20 years of experience in the food and beverage industry, Aditya leads Maza with a vision to bring authentic tropical flavors to the world.",
         socials: { twitter: "#", linkedin: "#", instagram: "#" }
     },

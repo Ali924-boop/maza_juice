@@ -7,6 +7,7 @@ export interface Flavor {
     secondaryColor: string;
     image: string;
     price: number;
+    isTrending?: boolean;
 }
 
 export const flavors: Flavor[] = [
@@ -19,6 +20,7 @@ export const flavors: Flavor[] = [
         secondaryColor: "#FF7A00",
         image: "https://images.unsplash.com/photo-1622597467836-f3285f2127fd?q=80&w=800",
         price: 15.99,
+        isTrending: true,
     },
     {
         id: "guava",
@@ -29,6 +31,7 @@ export const flavors: Flavor[] = [
         secondaryColor: "#E04C63",
         image: "https://images.unsplash.com/photo-1546173159-315144b611e9?q=80&w=800",
         price: 16.99,
+        isTrending: true,
     },
     {
         id: "litchi",
@@ -39,6 +42,7 @@ export const flavors: Flavor[] = [
         secondaryColor: "#D6D6D6",
         image: "https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?q=80&w=800",
         price: 17.99,
+        isTrending: true,
     },
     {
         id: "mixed-fruit",
@@ -49,5 +53,6 @@ export const flavors: Flavor[] = [
         secondaryColor: "#FF4500",
         image: "https://images.unsplash.com/photo-1621506289937-48e462774870?q=80&w=800",
         price: 18.99,
+        isTrending: false,
     },
 ];
