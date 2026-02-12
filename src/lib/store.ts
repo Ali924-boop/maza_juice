@@ -21,21 +21,23 @@ const initialCustomers = [
 ];
 
 export const getStoreData = () => {
-    if (typeof window === "undefined") return { flavors: initialFlavors, orders: initialOrders, customers: initialCustomers };
+    if (typeof window === "undefined") return { flavors: initialFlavors, orders: initialOrders, customers: initialCustomers, reviews: [] };
 
     const flavors = JSON.parse(localStorage.getItem("maza_flavors") || JSON.stringify(initialFlavors));
     const orders = JSON.parse(localStorage.getItem("maza_orders") || JSON.stringify(initialOrders));
     const customers = JSON.parse(localStorage.getItem("maza_customers") || JSON.stringify(initialCustomers));
+    const reviews = JSON.parse(localStorage.getItem("maza_reviews") || "[]");
 
-    return { flavors, orders, customers };
+    return { flavors, orders, customers, reviews };
 };
 
-export const saveStoreData = (data: { flavors?: any[], orders?: any[], customers?: any[] }) => {
+export const saveStoreData = (data: { flavors?: any[], orders?: any[], customers?: any[], reviews?: any[] }) => {
     if (typeof window === "undefined") return;
 
     if (data.flavors) localStorage.setItem("maza_flavors", JSON.stringify(data.flavors));
     if (data.orders) localStorage.setItem("maza_orders", JSON.stringify(data.orders));
     if (data.customers) localStorage.setItem("maza_customers", JSON.stringify(data.customers));
+    if (data.reviews) localStorage.setItem("maza_reviews", JSON.stringify(data.reviews));
 };
 
 export const updateOrderStatus = (orderId: string, status: string) => {
@@ -64,4 +66,11 @@ export const updateProduct = (flavor: any) => {
     const updatedFlavors = flavors.map((f: any) => f.id === flavor.id ? flavor : f);
     saveStoreData({ flavors: updatedFlavors });
     return updatedFlavors;
+};
+
+export const addReview = (review: any) => {
+    const { reviews } = getStoreData();
+    const updatedReviews = [review, ...reviews];
+    saveStoreData({ reviews: updatedReviews });
+    return updatedReviews;
 };

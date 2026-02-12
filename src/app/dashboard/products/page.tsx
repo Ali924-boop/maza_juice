@@ -22,7 +22,8 @@ import {
     Layers,
     CheckCircle2,
     AlertCircle,
-    ChevronRight
+    ChevronRight,
+    Star
 } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -44,7 +45,8 @@ export default function ProductsManagementPage() {
         price: "",
         stock: 100,
         description: "",
-        image: "https://images.unsplash.com/photo-1622597467836-f3285f2127fd?q=80&w=400"
+        image: "https://images.unsplash.com/photo-1622597467836-f3285f2127fd?q=80&w=400",
+        isTrending: false
     };
     const [formData, setFormData] = useState(initialFormState);
 
@@ -53,7 +55,8 @@ export default function ProductsManagementPage() {
         // Ensure every product has a stock property for the UI
         const dataWithStock = data.map((f: any) => ({
             ...f,
-            stock: f.stock || Math.floor(Math.random() * 200) + 50
+            stock: f.stock || Math.floor(Math.random() * 200) + 50,
+            isTrending: f.isTrending ?? false
         }));
         setFlavors(dataWithStock);
         setMounted(true);
@@ -67,6 +70,8 @@ export default function ProductsManagementPage() {
             result = result.filter(f => f.stock > 20);
         } else if (activeFilter === "Low Stock") {
             result = result.filter(f => f.stock <= 20);
+        } else if (activeFilter === "Trending") {
+            result = result.filter(f => f.isTrending);
         }
 
         // Filter by Search
@@ -90,6 +95,13 @@ export default function ProductsManagementPage() {
         }
     };
 
+    const toggleTrending = (flavor: any) => {
+        const updatedFlavor = { ...flavor, isTrending: !flavor.isTrending };
+        const updated = updateProduct(updatedFlavor);
+        setFlavors(updated);
+        toast.success(`${flavor.name} ${!flavor.isTrending ? 'marked as trending' : 'removed from trending'}`);
+    };
+
     const handleSaveFlavor = () => {
         if (!formData.name || !formData.price) {
             toast.error("Please fill in all required fields");
@@ -104,8 +116,9 @@ export default function ProductsManagementPage() {
             description: formData.description,
             image: formData.image,
             fullDetails: formData.description,
-            color: editingProduct?.color || "#FFB800",
-            secondaryColor: editingProduct?.secondaryColor || "#FF7A00"
+            color: editingProduct?.color || "#FF7A00",
+            secondaryColor: editingProduct?.secondaryColor || "#FFB800",
+            isTrending: formData.isTrending
         };
 
         let updated;
@@ -134,7 +147,8 @@ export default function ProductsManagementPage() {
             price: flavor.price,
             stock: flavor.stock,
             description: flavor.description,
-            image: flavor.image
+            image: flavor.image,
+            isTrending: flavor.isTrending || false
         });
         setIsAdding(true);
     };
@@ -174,7 +188,7 @@ export default function ProductsManagementPage() {
                 <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-neutral-100 mb-20">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-6">
                         <div className="flex items-center gap-1 bg-neutral-100 p-1 rounded-2xl w-full md:w-auto overflow-x-auto no-scrollbar">
-                            {["All", "In Stock", "Low Stock"].map(filter => (
+                            {["All", "In Stock", "Low Stock", "Trending"].map(filter => (
                                 <button
                                     key={filter}
                                     onClick={() => setActiveFilter(filter)}
@@ -193,14 +207,14 @@ export default function ProductsManagementPage() {
                     </div>
 
                     <div className="overflow-x-auto -mx-6 md:mx-0">
-                        <div className="min-w-[800px] px-6 md:px-0">
+                        <div className="min-w-[900px] px-6 md:px-0">
                             <table className="w-full">
                                 <thead>
                                     <tr className="text-left text-neutral-400 text-[10px] border-b uppercase tracking-widest font-black">
                                         <th className="pb-4 pt-2 pl-4">Product Details</th>
                                         <th className="pb-4 pt-2 text-center">Price</th>
                                         <th className="pb-4 pt-2 text-center">Stock Level</th>
-                                        <th className="pb-4 pt-2 text-center">Category</th>
+                                        <th className="pb-4 pt-2 text-center">Trending</th>
                                         <th className="pb-4 pt-2 text-right pr-6">Actions</th>
                                     </tr>
                                 </thead>
@@ -250,7 +264,18 @@ export default function ProductsManagementPage() {
                                                     </div>
                                                 </td>
                                                 <td className="py-5 text-center">
-                                                    <span className="bg-neutral-100 px-3 py-1.5 rounded-full text-[9px] font-black text-neutral-500 uppercase tracking-widest">Tropical</span>
+                                                    <button
+                                                        onClick={() => toggleTrending(flavor)}
+                                                        className={cn(
+                                                            "mx-auto w-max px-4 py-2 rounded-xl text-[9px] font-black tracking-widest uppercase transition-all flex items-center gap-2",
+                                                            flavor.isTrending
+                                                                ? "bg-maza-orange text-white shadow-lg shadow-maza-orange/20"
+                                                                : "bg-neutral-100 text-neutral-400 hover:bg-neutral-200"
+                                                        )}
+                                                    >
+                                                        {flavor.isTrending && <Star size={10} fill="white" />}
+                                                        {flavor.isTrending ? "Active" : "Curate"}
+                                                    </button>
                                                 </td>
                                                 <td className="py-5 text-right pr-6">
                                                     <div className="flex items-center justify-end gap-2">
@@ -383,6 +408,32 @@ export default function ProductsManagementPage() {
                                         rows={4}
                                         placeholder="Describe the aromatic notes and taste profile of this juice..."
                                     />
+                                </div>
+
+                                <div className="flex items-center gap-4 bg-neutral-50 p-6 rounded-[2rem] border border-neutral-100/50">
+                                    <div className={cn(
+                                        "w-12 h-12 rounded-2xl flex items-center justify-center transition-all",
+                                        formData.isTrending ? "bg-maza-orange text-white" : "bg-neutral-200 text-neutral-400"
+                                    )}>
+                                        <Star size={24} fill={formData.isTrending ? "white" : "none"} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs font-black uppercase tracking-tight">Promote to Trending</p>
+                                        <p className="text-[10px] text-neutral-400 font-bold">This flavor will appear in the "Fresh Arrivals" section on the home page.</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData({ ...formData, isTrending: !formData.isTrending })}
+                                        className={cn(
+                                            "w-14 h-8 rounded-full relative transition-all duration-500",
+                                            formData.isTrending ? "bg-maza-orange" : "bg-neutral-200"
+                                        )}
+                                    >
+                                        <motion.div
+                                            animate={{ x: formData.isTrending ? 24 : 4 }}
+                                            className="absolute top-1 w-6 h-6 bg-white rounded-full shadow-sm"
+                                        />
+                                    </button>
                                 </div>
 
                                 <div className="pt-6 flex gap-4">

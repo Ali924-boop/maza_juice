@@ -136,10 +136,35 @@ export default function SettingsPage() {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-maza-orange/5 blur-3xl -mr-32 -mt-32 rounded-full" />
 
                         <div className="flex items-center gap-6 mb-12 relative z-10">
-                            <div className="w-20 h-20 rounded-[2rem] bg-neutral-100 overflow-hidden relative shadow-xl border-4 border-white group">
-                                <img src={profile.image} alt="Admin" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                                    <Palette size={20} className="text-white" />
+                            <div className="relative group">
+                                <input
+                                    type="file"
+                                    id="profile-upload"
+                                    className="hidden"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => {
+                                                setProfile(prev => ({ ...prev, image: reader.result as string }));
+                                                toast.success("Profile image updated preview");
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }}
+                                />
+                                <div
+                                    onClick={() => document.getElementById('profile-upload')?.click()}
+                                    className="w-20 h-20 rounded-[2rem] bg-neutral-100 overflow-hidden relative shadow-xl border-4 border-white cursor-pointer transition-all active:scale-90"
+                                >
+                                    <img src={profile.image} alt="Admin" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <Palette size={20} className="text-white" />
+                                    </div>
+                                </div>
+                                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-maza-orange rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                                    <Check size={12} className="text-white" />
                                 </div>
                             </div>
                             <div>
