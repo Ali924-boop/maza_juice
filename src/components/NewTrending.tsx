@@ -1,16 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { flavors } from "@/data/flavors";
+import { getStoreData } from "@/lib/store";
 import Link from "next/link";
-import { Plus, ShoppingCart } from "lucide-react";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function NewTrending() {
     const { addToCart } = useCart();
-    const trending = flavors.slice(0, 3);
+    const [trending, setTrending] = useState<any[]>([]);
+
+    useEffect(() => {
+        const { flavors } = getStoreData();
+        const trendingFlavors = flavors.filter((f: any) => f.isTrending);
+        setTrending(trendingFlavors);
+    }, []);
 
     const handleAddToCart = (e: React.MouseEvent, flavor: any) => {
         e.preventDefault();
@@ -18,6 +25,8 @@ export default function NewTrending() {
         addToCart(flavor);
         toast.success(`${flavor.name} added to cart!`);
     };
+
+    if (trending.length === 0) return null;
 
     return (
         <section className="py-24 px-6 bg-white overflow-hidden">
@@ -46,7 +55,7 @@ export default function NewTrending() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {trending.map((flavor, index) => (
+                    {trending.slice(0, 3).map((flavor, index) => (
                         <motion.div
                             key={flavor.id}
                             initial={{ opacity: 0, y: 50 }}

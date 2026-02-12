@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 import { getStoreData } from "@/lib/store";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductBottleScroll from "@/components/ProductBottleScroll";
+import ProductTextOverlays from "@/components/ProductTextOverlays";
+import ReviewSystem from "@/components/ReviewSystem";
+import { mangoJuiceProduct } from "@/data/mangojuice";
 import { useCart } from "@/context/CartContext";
 import { motion } from "framer-motion";
-import { Plus, Minus, ShoppingCart, ShieldCheck, Zap, Leaf } from "lucide-react";
+import { Plus, Minus, ShoppingCart, ShieldCheck, Zap, Leaf, Star } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -17,26 +21,126 @@ export default function ProductDetailPage() {
     const [flavor, setFlavor] = useState<any>(null);
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
+    const [isPremium, setIsPremium] = useState(false);
+    const [reviewCount, setReviewCount] = useState(0);
 
     useEffect(() => {
-        const { flavors } = getStoreData();
+        const { flavors, reviews } = getStoreData();
         const found = flavors.find((f: any) => f.id === id);
         setFlavor(found);
+        if (id === 'mango') setIsPremium(true);
+
+        const count = reviews.filter((r: any) => r.productId === id).length;
+        setReviewCount(count);
     }, [id]);
 
     if (!flavor) return null;
 
+    if (isPremium) {
+        return <PremiumExperience flavor={flavor} addToCart={addToCart} reviewCount={reviewCount} />;
+    }
+
     const handleAddToCart = () => {
-        // Simple version: loop add or just add once with quantity (context update needed)
-        // Let's just add it once for now as per current context, or I could update context.
-        // For simplicity right now, I'll just call it 'quantity' times if needed, 
-        // but better is to fix context later if needed.
         for (let i = 0; i < quantity; i++) {
             addToCart(flavor);
         }
         toast.success(`${quantity} ${flavor.name} added to cart!`);
     };
 
+    return (
+        <StandardExperience
+            flavor={flavor}
+            quantity={quantity}
+            setQuantity={setQuantity}
+            handleAddToCart={handleAddToCart}
+            reviewCount={reviewCount}
+        />
+    );
+}
+
+function PremiumExperience({ flavor, addToCart, reviewCount }: { flavor: any, addToCart: any, reviewCount: number }) {
+    return (
+        <main className="bg-neutral-950 min-h-screen">
+            <Navbar />
+
+            <div className="relative">
+                <ProductBottleScroll product={mangoJuiceProduct} />
+                <ProductTextOverlays product={mangoJuiceProduct} />
+
+                {/* Initial Title */}
+                <div className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center pointer-events-none z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="text-center px-6"
+                    >
+                        <h1 className="text-7xl md:text-9xl font-black text-white tracking-tighter italic uppercase">
+                            MANGO <span className="text-maza-orange">MAZA</span>
+                        </h1>
+                        <p className="text-xl md:text-2xl font-bold text-neutral-400 mt-4 tracking-widest uppercase">
+                            Premium Extraction Sequence
+                        </p>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Transition Section */}
+            <section className="min-h-screen bg-white flex flex-col items-center justify-center px-6 relative z-20 rounded-t-[4rem] -mt-20">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="max-w-4xl text-center pt-20"
+                >
+                    <span className="text-maza-orange font-black uppercase tracking-widest text-sm mb-6 block">Legacy of Taste</span>
+                    <h2 className="text-5xl md:text-8xl font-black mb-12 tracking-tighter text-neutral-900 leading-none">
+                        THE FINEST <br />
+                        <span className="text-maza-orange">ORCHARDS.</span>
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <div className="p-8 bg-neutral-50 rounded-[2rem] space-y-4">
+                            <Leaf className="text-green-500" size={32} />
+                            <h4 className="font-extrabold text-xl">100% Organic</h4>
+                            <p className="text-neutral-500 text-sm leading-relaxed">Sourced from certified organic farms where fruit grows as nature intended.</p>
+                        </div>
+                        <div className="p-8 bg-neutral-50 rounded-[2rem] space-y-4">
+                            <Zap className="text-maza-orange" size={32} />
+                            <h4 className="font-extrabold text-xl">Cold-Pressed</h4>
+                            <p className="text-neutral-500 text-sm leading-relaxed">Preserving all vital minerals and vitamins through low-temperature extraction.</p>
+                        </div>
+                        <div className="p-8 bg-neutral-50 rounded-[2rem] space-y-4">
+                            <ShieldCheck className="text-blue-500" size={32} />
+                            <h4 className="font-extrabold text-xl">Zero Waste</h4>
+                            <p className="text-neutral-500 text-sm leading-relaxed">Our production cycle is fully sustainable, respecting the earth that feeds us.</p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => {
+                            addToCart(flavor);
+                            toast.success(`${flavor.name} added to cart!`);
+                        }}
+                        className="mt-20 bg-neutral-900 text-white px-12 py-6 rounded-full font-black text-lg uppercase tracking-widest hover:bg-maza-orange transition-all shadow-2xl active:scale-95"
+                    >
+                        Add to Cart — ${flavor.price}
+                    </button>
+
+                    <div className="mt-12 flex items-center justify-center gap-1.5 text-maza-yellow">
+                        {"★★★★★".split("").map((s, i) => <Star key={i} size={16} fill="currentColor" />)}
+                        <span className="text-neutral-400 text-xs font-bold ml-2 uppercase tracking-widest">({reviewCount} Verified Reviews)</span>
+                    </div>
+                </motion.div>
+
+                <div className="w-full mt-24">
+                    <ReviewSystem productId={flavor.id} />
+                </div>
+            </section>
+
+            <Footer />
+        </main>
+    );
+}
+
+function StandardExperience({ flavor, quantity, setQuantity, handleAddToCart, reviewCount }: any) {
     return (
         <main className="min-h-screen bg-white">
             <Navbar />
@@ -73,8 +177,10 @@ export default function ProductDetailPage() {
                                 <span className="text-3xl font-black text-secondary">${flavor.price}</span>
                                 <div className="h-6 w-[1px] bg-neutral-200" />
                                 <div className="flex items-center gap-1 text-yellow-400">
-                                    {"★★★★★".split("").map((s, i) => <span key={i}>{s}</span>)}
-                                    <span className="text-neutral-400 text-xs font-bold ml-2">(120+ Reviews)</span>
+                                    {"★★★★★".split("").map((s, i) => <Star key={i} size={16} fill="currentColor" />)}
+                                    <span className="text-neutral-400 text-xs font-bold ml-2 uppercase tracking-widest">
+                                        ({reviewCount || "120+"} Verified Reviews)
+                                    </span>
                                 </div>
                             </div>
 
@@ -136,6 +242,10 @@ export default function ProductDetailPage() {
                             </div>
                         </motion.div>
                     </div>
+                </div>
+
+                <div className="mt-20">
+                    <ReviewSystem productId={flavor.id} />
                 </div>
             </div>
 
